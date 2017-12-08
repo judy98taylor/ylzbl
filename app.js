@@ -4,7 +4,8 @@ var querystring = require('querystring');
 var app = express();
 // add '/wx'
 var router = express.Router();
-
+var APPID = 'wx43d17d7d013dc48f';
+var APPSECRET = 'e90a6f9769f8748cb164f4282ada0295';
 router.get('/', function(req, res) {
   res.send(`<!DOCTYPE html>
   <html lang="en">
@@ -52,7 +53,12 @@ router.get('/get', function(req, res) {
 
 });
 
-
+router.get('/get_access_token', (req, res) => {
+  request.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`, (err, resp, body) => {
+    // body = {"access_token":"ACCESS_TOKEN","expires_in":7200} str
+    res.end(body);
+  });
+});
 
 
 
