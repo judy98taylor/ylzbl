@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
   <body>
     <p style="color:red;">web pathname x</p>
     <img src="http://nodejs.cn/static/images/logo.svg" alt="">
-    <img src="./images/gif.gif" alt="">
+    <img src="/wx/asd/images/gif.gif" alt="">
   </body>
   
   </html>
@@ -59,7 +59,7 @@ router.get('/get', function(req, res) {
 
 
 app.use('/wx', router);
-app.use('/wx', express.static('public'));
+app.use('/wx', express.static('wx'));
 
 var server = app.listen(8888, function() {
   var host = server.address().address;
