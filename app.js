@@ -20,10 +20,33 @@ var jsapi_ticket = null;
 var url = null;
 var wxData_share = null;
 router.get('/', function (req, res) {
-  res.send('hi');
+  url = req.query.url.split('#')[0];
+  res.send(url);
+  // res.send('hi');
+
+  // res.format({
+  //   'text/plain': function () {
+  //     res.send('hey');
+  //   },
+
+  //   'text/html': function () {
+  //     res.send('<p>hey</p>');
+  //   },
+
+  //   'application/json': function () {
+  //     res.send({ message: 'hey' });
+  //   },
+
+  //   'default': function () {
+  //     // log the request and respond with 406
+  //     res.status(406).send('Not Acceptable');
+  //   }
+  // });
+
 });
 
 router.get('/get_wxData_share', (req, res) => {
+  url = req.query.url.split('#')[0];
 
   // if (req.query.url == undefined) {
   //   res.send('url参数错误');
@@ -32,7 +55,8 @@ router.get('/get_wxData_share', (req, res) => {
   // console.log(url);
 
   // Date.now() 13wei ms  1h 60*60*1000
-  if (!curTime || (Date.now() - curTime >= expires_in * 1e3)) {
+  // if (!curTime || (Date.now() - curTime >= expires_in * 1e3)) {
+  if (!curTime || (Date.now() - curTime >= 7000 * 1e3)) {
     console.log('nocache');
     getData();
   } else {
@@ -79,7 +103,8 @@ router.get('/get_wxData_share', (req, res) => {
          *}
          */
 
-        wxData_share = sign(jsapi_ticket, 'http://www.ylzbl.com/wx/h5/20171210/index.html');
+        // 注意 URL 一定要动态获取，不能 hardcode.
+        wxData_share = sign(jsapi_ticket, url);
 
         console.log('wxData_share ok', wxData_share);
 
