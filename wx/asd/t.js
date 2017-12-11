@@ -6,7 +6,7 @@ var util = require('util');
 var cache = null;
 var curTime = null;
 
-http.createServer(function(req0, res0) {
+http.createServer(function (req0, res0) {
   res0.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
   // res0.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
   // res0.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -15,6 +15,7 @@ http.createServer(function(req0, res0) {
     // res.end(util.inspect(url.parse(req.url, true)));
     // res.end();
     if (params.query.f == 1) {
+
       // Date.now() 13wei ms  1h 60*60*1000
       if (!curTime || (Date.now() - curTime > 3000)) {
         getData();
@@ -25,6 +26,7 @@ http.createServer(function(req0, res0) {
           data: cache
         }));
       }
+
     } else {
       res0.end('search x');
     }

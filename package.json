@@ -18,6 +18,7 @@
   "homepage": "https://github.com/zd9027/ylzbl#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "jssha": "^1.5.0"
   }
 }
