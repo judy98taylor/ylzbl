@@ -20,8 +20,7 @@ var jsapi_ticket = null;
 var url = null;
 var wxData_share = null;
 router.get('/', function (req, res) {
-  url = req.query.url.split('#')[0];
-  res.send(url);
+  res.send('url=' + req.query.url);
   // res.send('hi');
 
   // res.format({
@@ -46,8 +45,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/get_wxData_share', (req, res) => {
-  url = req.query.url.split('#')[0];
-
+  // 注意 URL 一定要动态获取，不能 hardcode.
+  url = decodeURIComponent(req.query.url)
   // if (req.query.url == undefined) {
   //   res.send('url参数错误');
   // }
@@ -64,7 +63,7 @@ router.get('/get_wxData_share', (req, res) => {
     res.json({
       code: 0,
       type: 'cache',
-      data: wxData_share
+      data: sign(jsapi_ticket, url)
     });
   }
 
@@ -102,16 +101,10 @@ router.get('/get_wxData_share', (req, res) => {
          *  signature: '1316ed92e0827786cfda3ae355f33760c4f70c1f'
          *}
          */
-
-        // 注意 URL 一定要动态获取，不能 hardcode.
-        wxData_share = sign(jsapi_ticket, url);
-
-        console.log('wxData_share ok', wxData_share);
-
         res.json({
           code: 0,
           type: 'nocache',
-          data: wxData_share
+          data: sign(jsapi_ticket, url)
         });
 
       });
